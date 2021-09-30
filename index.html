@@ -21,9 +21,9 @@
     </menu>
     <main class="main">
         <aside class="reader">
-            <button class="sweep" onclick="sweep()">扫一扫</button>
+            <button class="sweep" id="sweep">扫一扫</button>
             <button class="sweep">
-                <input type="file" id="file" onchange="upload()" />从相册选择
+                <input type="file" id="file" />从相册选择
             </button>
             <div class="imgurl">
                 <img id="imgurl"
@@ -44,8 +44,8 @@
     <script src="./js/base.js"></script>
     <script>
         window.onload = function(){
-			const result = document.querySelector('#result');
-			const QrCode = new QrCodeRecognition({
+			var result = document.querySelector('#result');
+			var QrCode = new QrCodeRecognition({
 			    sweepId: '#canvas',
 			    uploadId: '#file',
 			    error: function (err) {
@@ -57,20 +57,18 @@
 			        result.value = res.data;
 			    }
 			});
-			
+			var sweep = document.getElementById('sweep')
+			var file = document.getElementById('file')
 			// 扫一扫
-			function sweep() {
-				alert(1)
-			    result.value = '';
-			    QrCode.sweep();
-			};
-			
+			sweep.onclick = function(){
+				result.value = '';
+				QrCode.sweep();
+			}
 			// 从相册选择
-			function upload() {
-				alert(1)
-			    result.value = '';
-			    QrCode.upload();
-			};
+			file.onchange = function(){
+				result.value = '';
+				QrCode.upload();
+			}
 		}
     </script>
 </body>
